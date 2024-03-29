@@ -1,12 +1,6 @@
 import cv2
 import numpy as np
-from PIL import Image
-from dotenv import load_dotenv
 import os
-
-load_dotenv()
-
-Chess_Board_ML = os.getenv("Chess_Board_ML_DIR")
 
 def line_intersection(line1, line2):
     x1, y1, x2, y2 = line1
@@ -44,8 +38,6 @@ def find_chessboard(image, canny_low=50, canny_high=150):
 
     return None
 
-
-
 def crop_chessboard(image, padding=3):
     cv2_img = np.array(image)
     chessboard_coordinates = find_chessboard(cv2_img)
@@ -59,11 +51,13 @@ def crop_chessboard(image, padding=3):
         y2 = min(y2 + padding, cv2_img.shape[0])
 
         cropped_img = image.crop((x1, y1, x2, y2))
-        cropped_img.save('cropped_chessboard.png')
+        
+        # Create processed directory if it doesn't exist
+        os.makedirs('processed', exist_ok=True)
+        output_path = os.path.join('processed', 'cropped_chessboard.png')
+        cropped_img.save(output_path)
 
         return cropped_img
     else:
         print("Chessboard not found in the image.")
         return None
-
-

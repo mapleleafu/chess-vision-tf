@@ -1,10 +1,10 @@
 import os
 import platform
 from PIL import Image
+from PIL import ImageGrab
 
 if platform.system() == 'Windows':
     import win32gui
-    from PIL import ImageGrab
     import ctypes
     # Fix for high-DPI displays (prevents cropped screenshots)
     try:
@@ -106,7 +106,6 @@ def grab_screen(target_name=None):
             print("Please run: pip install mss")
             # Fallback: try to use ImageGrab if available (works on some Linux setups)
             try:
-                from PIL import ImageGrab
                 print("Using PIL ImageGrab as fallback (full screen)")
                 img = ImageGrab.grab()
                 return img

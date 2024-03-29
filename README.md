@@ -6,6 +6,8 @@
 
 A computer vision application that recognizes chess positions from screenshots and provides engine analysis. Combines deep learning, computer vision, and chess engine integration into a cross-platform pipeline.
 
+![Analysis Board Preview](https://i.imgur.com/Fm8eTkE.png)
+
 ## Architecture
 
 ```
@@ -61,6 +63,8 @@ python main.py
 Two input methods:
 - **Screenshot Analysis**: Captures screen, detects chessboard, classifies pieces, opens analysis window
 - **FEN Input**: Directly load a position using Forsyth-Edwards Notation
+
+![Main Window](https://i.imgur.com/7aMfvAD.png)
 
 ## License
 
