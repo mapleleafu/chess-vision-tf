@@ -1,12 +1,6 @@
 from PIL import Image
-from crop_the_screenshot import crop_chessboard
-from dotenv import load_dotenv
+from core.vision import crop_chessboard
 import os
-
-load_dotenv()
-
-Chess_Board_ML = os.getenv("Chess_Board_ML_DIR")
-_64_squares = os.getenv("64_squares_DIR")
 
 def crop_chess_board_squares(image, output_folder, square_size=0):
     square_width, square_height = square_size, square_size
@@ -25,11 +19,8 @@ def crop_chess_board_squares(image, output_folder, square_size=0):
             cropped_square.save(output_file_name)
             count += 1
 
-
 def square_maker(img, cropped):
-    output_folder = f'{_64_squares}'
+    output_folder = '64_squares'
     width, height = cropped.size
     square_size = width // 8
     crop_chess_board_squares(cropped, output_folder, square_size)
-
-

@@ -9,13 +9,8 @@ from tensorflow.keras import layers, models
 from tensorflow.keras.layers import Dropout
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import EarlyStopping
-from dotenv import load_dotenv
 
-load_dotenv()
-
-all_images = os.getenv("ALL_IMAGES_DIR")
-
-DATADIR = f"{all_images}"
+DATADIR = "assets/dataset"
 CATEGORIES = ["bb", "bk", "bn", "bp", "bq", "br", "wb", "wk", "wn", "wp", "wq", "wr", "zEmpty"]
 
 X = []
@@ -92,4 +87,4 @@ history_with_dropout = model_with_dropout.fit(datagen.flow(X_train, Y_train, bat
 
 test_loss_dropout, test_acc_dropout = model_with_dropout.evaluate(X_test, Y_test, verbose=2)
 print('\nTest accuracy with dropout and data augmentation:', test_acc_dropout)
-model_with_dropout.save('chess_pieces_classifier_with_dropout.h5')
+model_with_dropout.save(f"models/model_{test_acc_dropout}.h5")

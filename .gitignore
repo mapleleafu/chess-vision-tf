@@ -1,11 +1,8 @@
 cropped_chessboard.png
 fen_history.txt
 screenshot.png
-ALL_IMAGES/
-_64_squares/*
-!_64_squares/.gitkeep
 __pycache__
 .env
-_64_squares/
 build/
 stockfish/
+venv

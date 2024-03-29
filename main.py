@@ -2,23 +2,25 @@ import subprocess
 import tkinter as tk
 import chess
 from tkinter import ttk
-from crop_the_screenshot import crop_chessboard
-from screenshot import grab_screen
-from square_make import square_maker
+from core.vision import crop_chessboard
+from core.capture import grab_screen
+from core.grid import square_maker
+from core.gui_analysis import open_analysis_window
 
-def screenshot_button_click(screenshot_error_label):
+def screenshot_button_click(error_label):
+    # target = simpledialog.askstring("Input", "Which app to capture? (leave empty for auto)")
+    img = grab_screen() # Automatically finds any browser
+    if img is None:
+        error_label.config(text="No browser found!", fg="red")
+        return False
     try:
-        img = grab_screen()
         cropped_img = crop_chessboard(img)
         square_maker(img, cropped_img)
-        output = subprocess.check_output(["python", "board_display_and_actions.py"], stderr=subprocess.STDOUT, creationflags=subprocess.CREATE_NO_WINDOW)
-        
-        screenshot_error_label.config(text="")
+        open_analysis_window()
         return True
     except subprocess.CalledProcessError as e:
         output = e.output
         print(f"An error occurred: {output}")
-        screenshot_error_label.config(text="Opera Is Not Open!", fg="red")
         return False
 
 
@@ -27,7 +29,7 @@ def fen_button_click(fen, fen_error_label, fen_entry):
     try:
         board.set_fen(fen)
         print("Valid FEN code.")
-        subprocess.run(["python", "board_display_and_actions.py", fen])
+        open_analysis_window()
         fen_error_label.config(text="")
         return True
     except ValueError:
